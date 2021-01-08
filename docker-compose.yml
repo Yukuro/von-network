@@ -11,8 +11,6 @@ services:
       - IPS=${IPS}
       - DOCKERHOST=${DOCKERHOST}
       - RUST_LOG=${RUST_LOG}
-    networks:
-      - von
     volumes:
       - client-data:/home/indy/.indy_client
       - ./tmp:/tmp
@@ -40,8 +38,6 @@ services:
       - WEB_ANALYTICS_SCRIPT=${WEB_ANALYTICS_SCRIPT}
       - INFO_SITE_TEXT=${INFO_SITE_TEXT}
       - INFO_SITE_URL=${INFO_SITE_URL}
-    networks:
-      - von
     ports:
       - ${WEB_SERVER_HOST_PORT:-9000}:8000
     volumes:
@@ -62,8 +58,6 @@ services:
       - DOCKERHOST=${DOCKERHOST}
       - LOG_LEVEL=${LOG_LEVEL}
       - RUST_LOG=${RUST_LOG}
-    networks:
-      - von
     ports:
       - ${WEB_SERVER_HOST_PORT:-9000}:8000
     volumes:
@@ -78,8 +72,6 @@ services:
   nodes:
     image: von-network-base
     command: 'bash -c ''./scripts/start_nodes.sh'''
-    networks:
-      - von
     ports:
       - 9701:9701
       - 9702:9702
@@ -101,8 +93,6 @@ services:
   node1:
     image: von-network-base
     command: 'bash -c ''./scripts/start_node.sh 1'''
-    networks:
-      - von
     ports:
       - 9701:9701
       - 9702:9702
@@ -118,8 +108,6 @@ services:
   node2:
     image: von-network-base
     command: 'bash -c ''./scripts/start_node.sh 2'''
-    networks:
-      - von
     ports:
       - 9703:9703
       - 9704:9704
@@ -135,8 +123,6 @@ services:
   node3:
     image: von-network-base
     command: 'bash -c ''./scripts/start_node.sh 3'''
-    networks:
-      - von
     ports:
       - 9705:9705
       - 9706:9706
@@ -152,8 +138,6 @@ services:
   node4:
     image: von-network-base
     command: 'bash -c ''./scripts/start_node.sh 4'''
-    networks:
-      - von
     ports:
       - 9707:9707
       - 9708:9708
@@ -167,7 +151,8 @@ services:
       - node4-data:/home/indy/ledger
 
 networks:
-  von:
+  default:
+    external:
 
 volumes:
   client-data:
